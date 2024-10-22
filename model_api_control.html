@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Security Policy &mdash; PyTorch/Serve master documentation</title>
+  <title>Model API Control &mdash; PyTorch/Serve master documentation</title>
   
 
   
@@ -31,12 +31,10 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="FAQ’S" href="FAQs.html" />
-    <link rel="prev" title="Serving large models with Torchserve" href="large_model_inference.html" />
   <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -300,7 +298,7 @@
             
             
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Troubleshooting.html">Troubleshooting Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance_guide.html">Performance Guide</a></li>
@@ -316,12 +314,12 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -383,13 +381,13 @@
       </li>
 
         
-      <li>Security Policy</li>
+      <li>Model API Control</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/Security.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/model_api_control.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -419,98 +417,92 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <section id="security-policy">
-<h1>Security Policy<a class="headerlink" href="#security-policy" title="Permalink to this heading">¶</a></h1>
-<section id="supported-versions">
-<h2>Supported Versions<a class="headerlink" href="#supported-versions" title="Permalink to this heading">¶</a></h2>
-<table border="1" class="docutils">
-<thead>
-<tr>
-<th>Version</th>
-<th>Supported</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.10.0</td>
-<td>:white_check_mark:</td>
-</tr>
-</tbody>
-</table></section>
-<section id="how-we-do-security">
-<h2>How we do security<a class="headerlink" href="#how-we-do-security" title="Permalink to this heading">¶</a></h2>
-<p>As much as possible, TorchServe relies on automated tools to do security scanning. In particular, we support:</p>
+  <section id="model-api-control">
+<h1>Model API Control<a class="headerlink" href="#model-api-control" title="Permalink to this heading">¶</a></h1>
+<p>TorchServe now disables the use of model API (specifically registering and deleting models) by default. The use of these APIs can be enabled through command line or config.properties file.</p>
+<p>TorchServe disables the ability to register and delete models using API calls by default once TorchServe is running. This is a security feature which addresses the concern of unintended registration and deletion of models once TorchServe has started. This is applicable in the scenario where a user may upload malicious code to the model server in the form of a model or where a user may delete a model that is being used. The default behavior prevents users from registering or deleting models once TorchServe is running. Model API control can be enabled to allow users to register and delete models using the TorchServe model load and delete APIs.</p>
+<section id="three-ways-to-set-model-api-control">
+<h2>Three ways to set Model API Control<a class="headerlink" href="#three-ways-to-set-model-api-control" title="Permalink to this heading">¶</a></h2>
 <ol class="simple">
-<li><p>Dependency Analysis: Using Dependabot</p></li>
-<li><p>Docker Scanning: Using Snyk</p></li>
-<li><p>Code Analysis: Using CodeQL</p></li>
+<li><p>Environment variable: use <code class="docutils literal notranslate"><span class="pre">TS_ENABLE_MODEL_API</span></code> and set to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable and <code class="docutils literal notranslate"><span class="pre">false</span></code> to disable model API use. Note that <code class="docutils literal notranslate"><span class="pre">enable_envvars_config=true</span></code> must be set in config.properties to use environment variables configuration</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--enable-model-api</span></code> to command line when starting TorchServe to switch from disabled to enabled. Command line cannot be used to disable, can only be used to enable</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">enable_model_api=false</span></code> or <code class="docutils literal notranslate"><span class="pre">enable_model_api=true</span></code> to config.properties file</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_model_api=false</span></code> is default and prevents users from registering or deleting models once TorchServe is running</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable_model_api=true</span></code> is not default and allows users to register and delete models using the TorchServe model APIs</p></li>
+</ul>
+</li>
 </ol>
+<p>Priority follows the following <a class="reference external" href="https://github.com/pytorch/serve/blob/c74a29e8144bc12b84196775076b0e8cf3c5a6fc/docs/configuration.md#advanced-configuration">TorchServe standard</a></p>
+<ul>
+<li><p>Example 1:</p>
+<ul>
+<li><p>Config file: <code class="docutils literal notranslate"><span class="pre">enable_model_api=false</span></code></p>
+<p>cmd line: <code class="docutils literal notranslate"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--ncs</span> <span class="pre">--model-store</span> <span class="pre">model_store</span> <span class="pre">--enable-model-api</span></code></p>
+<p>Result: Model api mode enabled</p>
+</li>
+</ul>
+</li>
+<li><p>Example 2:</p>
+<ul>
+<li><p>Config file: <code class="docutils literal notranslate"><span class="pre">enable_model_api=true</span></code></p>
+<p>cmd line: <code class="docutils literal notranslate"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--ncs</span> <span class="pre">--model-store</span> <span class="pre">model_store</span></code></p>
+<p>Result: Mode is enabled (no way to disable api mode through cmd)</p>
+</li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="important-security-guidelines">
-<h2>Important Security Guidelines<a class="headerlink" href="#important-security-guidelines" title="Permalink to this heading">¶</a></h2>
-<ol>
-<li><p>TorchServe listens on the following ports</p>
-<ol class="simple">
-<li><p>HTTP - <code class="docutils literal notranslate"><span class="pre">8080</span></code>, <code class="docutils literal notranslate"><span class="pre">8081</span></code>, <code class="docutils literal notranslate"><span class="pre">8082</span></code></p></li>
-<li><p>gRPC - <code class="docutils literal notranslate"><span class="pre">7070</span></code>, <code class="docutils literal notranslate"><span class="pre">7071</span></code></p></li>
-</ol>
-<p>These ports are accessible to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> by default.  The addresses can be configured by following the guides for
-<a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/configuration.md#configure-torchserve-listening-address-and-port">HTTP</a> and
-<a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/configuration.md#configure-torchserve-grpc-listening-addresses-and-ports">gRPC</a>.
-TorchServe does not prevent users from configuring the address to be of any value, including the wildcard address <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code>.
-Please be aware of the security risks of configuring the address to be <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code>, this will give all addresses(including publicly accessible addresses, if any)
-on the host, access to the TorchServe endpoints listening on the ports shown above.</p>
-</li>
-<li><p>By <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docker/Dockerfile">default</a>, TorchServe’s Docker image is configured to expose the ports <code class="docutils literal notranslate"><span class="pre">8080</span></code>, <code class="docutils literal notranslate"><span class="pre">8081</span></code>, <code class="docutils literal notranslate"><span class="pre">8082</span></code>, <code class="docutils literal notranslate"><span class="pre">7070</span></code>, <code class="docutils literal notranslate"><span class="pre">7071</span></code> to the host. When starting the container,
-map the ports exposed by the container to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> ports or a specific IP address, as shown in this <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docker/README.md#security-guideline">security guideline</a>.</p></li>
-<li><p>Be sure to validate the authenticity of the <code class="docutils literal notranslate"><span class="pre">.mar</span></code> file being used with TorchServe.</p>
-<ol class="simple">
-<li><p>A <code class="docutils literal notranslate"><span class="pre">.mar</span></code> file being downloaded from the internet from an untrustworthy source may have malicious code, compromising the integrity of your application.</p></li>
-<li><p>TorchServe executes the arbitrary python code packaged in the <code class="docutils literal notranslate"><span class="pre">mar</span></code> file. Make sure that you’ve either audited that the code you’re using is safe and/or is from a source that you trust.</p></li>
-<li><p>TorchServe supports custom <a class="reference external" href="https://github.com/pytorch/serve/tree/master/plugins">plugins</a> and <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/custom_service">handlers</a>.
-These can be utilized to extend TorchServe functionality to perform runtime security scanning using tools such as:</p>
-<ul class="simple">
-<li><p>Clamd: https://pypi.org/project/clamd/</p></li>
-<li><p>VirusTotal: https://virustotal.github.io/vt-py/</p></li>
-<li><p>Fickling: https://github.com/trailofbits/fickling</p></li>
-</ul>
-</li>
-<li><p>Running TorchServe inside a container environment and loading an untrusted <code class="docutils literal notranslate"><span class="pre">.mar</span></code> file does not guarantee isolation from a security perspective.</p></li>
-</ol>
-</li>
-<li><p>By default, TorchServe allows you to register models from all URLs. Make sure to set <code class="docutils literal notranslate"><span class="pre">allowed_urls</span></code> parameter in config.properties to restrict this. You can find more details in the <a class="reference external" href="https://pytorch.org/serve/configuration.html#other-properties">configuration guide</a>.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">use_env_allowed_urls=true</span></code> is required in config.properties to read <code class="docutils literal notranslate"><span class="pre">allowed_urls</span></code> from environment variable.</p></li>
-</ul>
-</li>
-<li><p>Enable SSL:</p>
-<p>TorchServe supports two ways to configure SSL:</p>
-<ol class="simple">
-<li><p>Using a keystore</p></li>
-<li><p>Using private-key/certificate files</p></li>
-</ol>
-<p>You can find more details in the <a class="reference external" href="https://pytorch.org/serve/configuration.html#enable-ssl">configuration guide</a>.</p>
-</li>
-<li><p>Prepare your model against bad inputs and prompt injections. Some recommendations:</p>
-<ol class="simple">
-<li><p>Pre-analysis: check how the model performs by default when exposed to prompt injection (e.g. using <a class="reference external" href="https://github.com/FonduAI/awesome-prompt-injection?tab=readme-ov-file#tools">fuzzing for prompt injection</a>).</p></li>
-<li><p>Input Sanitation: Before feeding data to the model, sanitize inputs rigorously. This involves techniques such as:</p>
-<ul class="simple">
-<li><p>Validation: Enforce strict rules on allowed characters and data types.</p></li>
-<li><p>Filtering: Remove potentially malicious scripts or code fragments.</p></li>
-<li><p>Encoding: Convert special characters into safe representations.</p></li>
-<li><p>Verification: Run tooling that identifies potential script injections (e.g. <a class="reference external" href="https://python.langchain.com/docs/guides/safety/hugging_face_prompt_injection">models that detect prompt injection attempts</a>).</p></li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>If you intend to run multiple models in parallel with shared memory, it is your responsibility to ensure the models do not interact or access each other’s data. The primary areas of concern are tenant isolation, resource allocation, model sharing and hardware attacks.</p></li>
-<li><p>TorchServe supports token authorization: check <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/token_authorization_api">documentation</a> for more information.</p></li>
-</ol>
+<section id="model-api-control-default">
+<h2>Model API Control Default<a class="headerlink" href="#model-api-control-default" title="Permalink to this heading">¶</a></h2>
+<p>At startup TorchServe loads only those models specified explicitly with the <code class="docutils literal notranslate"><span class="pre">--models</span></code> command-line option. After startup users will be unable to register or delete models in this mode.</p>
+<section id="example-default">
+<h3>Example default<a class="headerlink" href="#example-default" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ubuntu@ip-172-31-11-32:~/serve$ torchserve --start --ncs --model-store model_store --models resnet-18=resnet-18.mar --ts-config config.properties
+...
+ubuntu@ip-172-31-11-32:~/serve$ curl -X POST  &quot;http://localhost:8081/models?url=https://torchserve.pytorch.org/mar_files/squeezenet1_1.mar&quot;
+2024-05-30T21:46:03,625 [INFO ] epollEventLoopGroup-3-2 ACCESS_LOG - /127.0.0.1:53514 &quot;POST /models?url=https://torchserve.pytorch.org/mar_files/squeezenet1_1.mar HTTP/1.1&quot; 405 0
+2024-05-30T21:46:03,626 [INFO ] epollEventLoopGroup-3-2 TS_METRICS - Requests4XX.Count:1.0|#Level:Host|#hostname:ip-172-31-11-32,timestamp:1717105563
+{
+  &quot;code&quot;: 405,
+  &quot;type&quot;: &quot;MethodNotAllowedException&quot;,
+  &quot;message&quot;: &quot;Requested method is not allowed, please refer to API document.&quot;
+}
+</pre></div>
+</div>
 </section>
-<section id="reporting-a-vulnerability">
-<h2>Reporting a Vulnerability<a class="headerlink" href="#reporting-a-vulnerability" title="Permalink to this heading">¶</a></h2>
-<p>If you find a vulnerability please report it to https://www.facebook.com/whitehat and aws-security&#64;amazon.com</p>
+</section>
+<section id="model-control-api-enabled">
+<h2>Model Control API Enabled<a class="headerlink" href="#model-control-api-enabled" title="Permalink to this heading">¶</a></h2>
+<p>Setting model API to <code class="docutils literal notranslate"><span class="pre">enabled</span></code> allows users to load and unload models using the model load APIs.</p>
+<section id="example-using-cmd-line-to-set-mode-to-enabled">
+<h3>Example using cmd line to set mode to enabled<a class="headerlink" href="#example-using-cmd-line-to-set-mode-to-enabled" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ubuntu@ip-172-31-11-32:~/serve$ torchserve --start --ncs --model-store model_store --models resnet-18=resnet-18.mar --ts-config config.properties --enable-model-api
+
+ubuntu@ip-172-31-11-32:~/serve$ curl -X POST  &quot;http://localhost:8081/models?url=https://torchserve.pytorch.org/mar_files/squeezenet1_1.mar&quot;
+{
+  &quot;status&quot;: &quot;Model \&quot;squeezenet1_1\&quot; Version: 1.0 registered with 0 initial workers. Use scale workers API to add workers for the model.&quot;
+}
+ubuntu@ip-172-31-11-32:~/serve$ curl http://localhost:8081/models
+2024-05-30T21:41:47,098 [INFO ] epollEventLoopGroup-3-2 ACCESS_LOG - /127.0.0.1:36270 &quot;GET /models HTTP/1.1&quot; 200 2
+2024-05-30T21:41:47,099 [INFO ] epollEventLoopGroup-3-2 TS_METRICS - Requests2XX.Count:1.0|#Level:Host|#hostname:ip-172-31-11-32,timestamp:1717105307
+{
+  &quot;models&quot;: [
+    {
+      &quot;modelName&quot;: &quot;resnet-18&quot;,
+      &quot;modelUrl&quot;: &quot;resnet-18.mar&quot;
+    },
+    {
+      &quot;modelName&quot;: &quot;squeezenet1_1&quot;,
+      &quot;modelUrl&quot;: &quot;https://torchserve.pytorch.org/mar_files/squeezenet1_1.mar&quot;
+    }
+  ]
+}
+ubuntu@ip-172-31-11-32:~/serve$ torchserve --stop
+TorchServe has stopped.
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -519,15 +511,6 @@ These can be utilized to extend TorchServe functionality to perform runtime secu
              
             </div>
             <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="FAQs.html" class="btn btn-neutral float-right" title="FAQ’S" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
-      
-      
-        <a href="large_model_inference.html" class="btn btn-neutral" title="Serving large models with Torchserve" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
-      
-    </div>
   
 
   
@@ -557,11 +540,16 @@ These can be utilized to extend TorchServe functionality to perform runtime secu
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">Security Policy</a><ul>
-<li><a class="reference internal" href="#supported-versions">Supported Versions</a></li>
-<li><a class="reference internal" href="#how-we-do-security">How we do security</a></li>
-<li><a class="reference internal" href="#important-security-guidelines">Important Security Guidelines</a></li>
-<li><a class="reference internal" href="#reporting-a-vulnerability">Reporting a Vulnerability</a></li>
+<li><a class="reference internal" href="#">Model API Control</a><ul>
+<li><a class="reference internal" href="#three-ways-to-set-model-api-control">Three ways to set Model API Control</a></li>
+<li><a class="reference internal" href="#model-api-control-default">Model API Control Default</a><ul>
+<li><a class="reference internal" href="#example-default">Example default</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-control-api-enabled">Model Control API Enabled</a><ul>
+<li><a class="reference internal" href="#example-using-cmd-line-to-set-mode-to-enabled">Example using cmd line to set mode to enabled</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

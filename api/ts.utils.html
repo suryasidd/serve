@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -316,12 +316,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Security.html">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -446,7 +446,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="ts.utils.util.PT2Backend">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ts.utils.util.</span></span><span class="sig-name descname"><span class="pre">PT2Backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ts/utils/util.html#PT2Backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts.utils.util.PT2Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ts.utils.util.PT2Backend.AOT_CUDAGRAPHS">
@@ -471,6 +471,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ts.utils.util.PT2Backend.FX2TRT">
 <span class="sig-name descname"><span class="pre">FX2TRT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fx2trt'</span></em><a class="headerlink" href="#ts.utils.util.PT2Backend.FX2TRT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts.utils.util.PT2Backend.HPU_BACKEND">
+<span class="sig-name descname"><span class="pre">HPU_BACKEND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hpu_backend'</span></em><a class="headerlink" href="#ts.utils.util.PT2Backend.HPU_BACKEND" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -499,6 +504,16 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ts.utils.util.PT2Backend.OPENVINO">
+<span class="sig-name descname"><span class="pre">OPENVINO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'openvino'</span></em><a class="headerlink" href="#ts.utils.util.PT2Backend.OPENVINO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts.utils.util.PT2Backend.TENSORRT">
+<span class="sig-name descname"><span class="pre">TENSORRT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tensorrt'</span></em><a class="headerlink" href="#ts.utils.util.PT2Backend.TENSORRT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ts.utils.util.PT2Backend.TORCHXLA_TRACE_ONCE">
 <span class="sig-name descname"><span class="pre">TORCHXLA_TRACE_ONCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'torchxla_trace_once'</span></em><a class="headerlink" href="#ts.utils.util.PT2Backend.TORCHXLA_TRACE_ONCE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -508,12 +523,12 @@
 <dl class="py exception">
 <dt class="sig sig-object py" id="ts.utils.util.PredictionException">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ts.utils.util.</span></span><span class="sig-name descname"><span class="pre">PredictionException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ts/utils/util.html#PredictionException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts.utils.util.PredictionException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ts.utils.util.check_valid_pt2_backend">
-<span class="sig-prename descclassname"><span class="pre">ts.utils.util.</span></span><span class="sig-name descname"><span class="pre">check_valid_pt2_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/ts/utils/util.html#check_valid_pt2_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts.utils.util.check_valid_pt2_backend" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ts.utils.util.</span></span><span class="sig-name descname"><span class="pre">check_valid_pt2_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/ts/utils/util.html#check_valid_pt2_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts.utils.util.check_valid_pt2_backend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">

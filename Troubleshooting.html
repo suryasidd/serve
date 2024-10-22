@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -316,12 +316,12 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Security.html">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -511,8 +511,8 @@ Relevant issues: [<a class="reference external" href="https://github.com/pytorch
 <h3>How can I resolve model specific python dependency?<a class="headerlink" href="#how-can-i-resolve-model-specific-python-dependency" title="Permalink to this heading">¶</a></h3>
 <p>You can provide a requirements.txt while creating a mar file using “–requirements-file/ -r” flag. You can refer to the <a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/text_to_speech_synthesizer">waveglow text-to-speech-synthesizer</a> example</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/master/examples/text_to_speech_synthesizer/create_mar.sh">waveglow mar creation script</a></p></li>
-<li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/2d9c7ccc316f592374943a1963c1057bbe232c9e/examples/text_to_speech_synthesizer/waveglow_handler.py#L49">waveglow handler</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/master/examples/text_to_speech_synthesizer/WaveGlow/create_mar.sh">waveglow mar creation script</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/2d9c7ccc316f592374943a1963c1057bbe232c9e/examples/text_to_speech_synthesizer/WaveGlow/waveglow_handler.py#L49">waveglow handler</a></p></li>
 </ul>
 <p>Relevant issues: [<a class="reference external" href="https://github.com/pytorch/serve/issues/566">#566</a>]
 Refer <a class="reference external" href="https://github.com/pytorch/serve/blob/master/model-archiver/README.md#torch-model-archiver-command-line-interface">Torch model archiver cli</a> for more details.</p>

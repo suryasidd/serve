@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -313,12 +313,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../Security.html">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -422,6 +422,7 @@
 <span class="sd">Ensures it can load and execute an example model</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
@@ -473,7 +474,6 @@
 
 <div class="viewcode-block" id="context"><a class="viewcode-back" href="../../../../api/ts.torch_handler.unit_tests.html#ts.torch_handler.unit_tests.test_object_detector.context">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
-
     <span class="n">context</span> <span class="o">=</span> <span class="n">MockContext</span><span class="p">(</span>
         <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;mnist&quot;</span><span class="p">,</span>
         <span class="n">model_dir</span><span class="o">=</span><span class="n">model_dir</span><span class="o">.</span><span class="n">as_posix</span><span class="p">(),</span>
@@ -490,7 +490,10 @@
     <span class="k">return</span> <span class="n">handler</span></div>
 
 
-<div class="viewcode-block" id="test_handle"><a class="viewcode-back" href="../../../../api/ts.torch_handler.unit_tests.html#ts.torch_handler.unit_tests.test_object_detector.test_handle">[docs]</a><span class="k">def</span> <span class="nf">test_handle</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">image_bytes</span><span class="p">):</span>
+<div class="viewcode-block" id="test_handle"><a class="viewcode-back" href="../../../../api/ts.torch_handler.unit_tests.html#ts.torch_handler.unit_tests.test_object_detector.test_handle">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span>
+    <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;aarch64&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Test skipped on aarch64 architecture&quot;</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_handle</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">image_bytes</span><span class="p">):</span>
     <span class="n">test_data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">image_bytes</span><span class="p">}]</span> <span class="o">*</span> <span class="mi">2</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>

@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -313,12 +313,12 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Security.html">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -592,6 +592,8 @@
 </li>
       <li><a href="api/ts.metrics.html#ts.metrics.process_memory_metric.get_cpu_usage">get_cpu_usage() (in module ts.metrics.process_memory_metric)</a>
 </li>
+      <li><a href="api/ts.torch_handler.html#ts.torch_handler.base_handler.BaseHandler.get_device">get_device() (ts.torch_handler.base_handler.BaseHandler method)</a>
+</li>
       <li><a href="api/ts.torch_handler.html#ts.torch_handler.text_classifier.TextClassifier.get_insights">get_insights() (ts.torch_handler.text_classifier.TextClassifier method)</a>
 
       <ul>
@@ -660,6 +662,8 @@
       </ul></li>
       <li><a href="api/ts.html#ts.model_service_worker.TorchModelServiceWorker.handle_connection">handle_connection() (ts.model_service_worker.TorchModelServiceWorker method)</a>
 </li>
+      <li><a href="api/ts.html#ts.model_service_worker.TorchModelServiceWorker.handle_connection_async">handle_connection_async() (ts.model_service_worker.TorchModelServiceWorker method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/ts.torch_handler.unit_tests.html#ts.torch_handler.unit_tests.test_envelopes.handle_fn">handle_fn() (in module ts.torch_handler.unit_tests.test_envelopes)</a>
@@ -674,6 +678,8 @@
         <li><a href="api/ts.torch_handler.unit_tests.html#ts.torch_handler.unit_tests.test_object_detector.handler">(in module ts.torch_handler.unit_tests.test_object_detector)</a>
 </li>
       </ul></li>
+      <li><a href="api/ts.utils.html#ts.utils.util.PT2Backend.HPU_BACKEND">HPU_BACKEND (ts.utils.util.PT2Backend attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -953,11 +959,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/ts.torch_handler.html#ts.torch_handler.object_detector.ObjectDetector">ObjectDetector (class in ts.torch_handler.object_detector)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/ts.utils.html#ts.utils.util.PT2Backend.OFI">OFI (ts.utils.util.PT2Backend attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/ts.utils.html#ts.utils.util.PT2Backend.ONNXRT">ONNXRT (ts.utils.util.PT2Backend attribute)</a>
+</li>
+      <li><a href="api/ts.utils.html#ts.utils.util.PT2Backend.OPENVINO">OPENVINO (ts.utils.util.PT2Backend attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1073,6 +1081,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ts.utils.html#ts.utils.util.PT2Backend.TENSORRT">TENSORRT (ts.utils.util.PT2Backend attribute)</a>
+</li>
       <li>
     test
 
@@ -1261,6 +1271,8 @@
         <li><a href="api/ts.protocol.html#module-ts.protocol.otf_message_handler">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ts.service
 
@@ -1268,8 +1280,6 @@
         <li><a href="api/ts.html#module-ts.service">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ts.torch_handler
 

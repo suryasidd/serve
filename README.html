@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TorchServe &mdash; PyTorch/Serve master documentation</title>
+  <title>❗ANNOUNCEMENT: Security Changes❗ &mdash; PyTorch/Serve master documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -314,12 +314,12 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia_mps.html">Running TorchServe with NVIDIA MPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="snapshot.html">TorchServe model snapshot</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/intel_extension_for_pytorch">intel_extension_for_pytorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_win_native.html">TorchServe on Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="torchserve_on_wsl.html">TorchServe on Windows Subsystem for Linux (WSL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_cases.html">Torchserve Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">TorchServe Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_model_inference.html">Serving large models with Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Security.html">Security Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQs.html">FAQ’S</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Service APIs:</span></p>
@@ -381,7 +381,7 @@
       </li>
 
         
-      <li>TorchServe</li>
+      <li>❗ANNOUNCEMENT: Security Changes❗</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
@@ -417,7 +417,11 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <section id="torchserve">
+  <section id="announcement-security-changes">
+<h1>❗ANNOUNCEMENT: Security Changes❗<a class="headerlink" href="#announcement-security-changes" title="Permalink to this heading">¶</a></h1>
+<p>TorchServe now enforces token authorization enabled and model API control disabled by default. These security features are intended to address the concern of unauthorized API calls and to prevent potential malicious code from being introduced to the model server. Refer the following documentation for more information: <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/token_authorization_api">Token Authorization</a>, <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/model_api_control">Model API control</a></p>
+</section>
+<section id="torchserve">
 <h1>TorchServe<a class="headerlink" href="#torchserve" title="Permalink to this heading">¶</a></h1>
 <p>TorchServe is a performant, flexible and easy to use tool for serving PyTorch eager mode and torchscripted models.</p>
 <section id="basic-features">
@@ -453,6 +457,7 @@
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference internal" href="llm_deployment.html"><span class="doc">Deploying LLMs</span></a> - How to easily deploy LLMs using TorchServe</p></li>
 <li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/master/examples/Huggingface_Transformers/Transformer_handler_generalized.py">HuggingFace Language Model</a> - This handler takes an input sentence and can return sequence classifications, token classifications or Q&amp;A answers</p></li>
 <li><p><a class="reference external" href="https://github.com/pytorch/serve/blob/master/examples/MMF-activity-recognition/handler.py">Multi Modal Framework</a> - Build and deploy a classifier that combines text, audio and video input data</p></li>
 <li><p><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/Workflows/nmt_transformers_pipeline">Dual Translation Workflow</a> -</p></li>
@@ -465,6 +470,7 @@
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/pytorch/serve/tree/master/examples/Workflows">Workflow Examples</a> - Examples of how to compose models in a workflow with TorchServe</p></li>
+<li><p><a class="reference external" href="../examples/pt2/torch_compile_hpu/README">Resnet50 HPU compile</a> - An example of how to run the model in compile mode with the HPU device</p></li>
 </ul>
 </section>
 <section id="advanced-features">
@@ -518,7 +524,8 @@
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">TorchServe</a><ul>
+<li><a class="reference internal" href="#">❗ANNOUNCEMENT: Security Changes❗</a></li>
+<li><a class="reference internal" href="#torchserve">TorchServe</a><ul>
 <li><a class="reference internal" href="#basic-features">Basic Features</a></li>
 <li><a class="reference internal" href="#default-handlers">Default Handlers</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
